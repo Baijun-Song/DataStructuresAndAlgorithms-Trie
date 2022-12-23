@@ -9,18 +9,20 @@
 /* Begin PBXBuildFile section */
 		0B41CE562906DB4D0050F82B /* Trie.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B41CE552906DB4D0050F82B /* Trie.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B41CE5D2906DB600050F82B /* Trie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B41CE5C2906DB600050F82B /* Trie.swift */; };
-		0B41CE5F2906DB690050F82B /* Trie._Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B41CE5E2906DB690050F82B /* Trie._Node.swift */; };
+		0B41CE5F2906DB690050F82B /* Trie.InternalNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B41CE5E2906DB690050F82B /* Trie.InternalNode.swift */; };
 		0B41CE622906E4030050F82B /* Stack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B41CE612906E4030050F82B /* Stack.framework */; };
 		0BAA45D3290798CE00F36AB6 /* Trie+CopyOnWrite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BAA45D2290798CE00F36AB6 /* Trie+CopyOnWrite.swift */; };
+		0BFC1B392934AA0700612A03 /* Trie+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFC1B382934AA0700612A03 /* Trie+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0B41CE522906DB4D0050F82B /* Trie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Trie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B41CE552906DB4D0050F82B /* Trie.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Trie.h; sourceTree = "<group>"; };
 		0B41CE5C2906DB600050F82B /* Trie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trie.swift; sourceTree = "<group>"; };
-		0B41CE5E2906DB690050F82B /* Trie._Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trie._Node.swift; sourceTree = "<group>"; };
+		0B41CE5E2906DB690050F82B /* Trie.InternalNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trie.InternalNode.swift; sourceTree = "<group>"; };
 		0B41CE612906E4030050F82B /* Stack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Stack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BAA45D2290798CE00F36AB6 /* Trie+CopyOnWrite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trie+CopyOnWrite.swift"; sourceTree = "<group>"; };
+		0BFC1B382934AA0700612A03 /* Trie+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trie+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +83,8 @@
 		0BA7633B29267B090080BF75 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
-				0B41CE5E2906DB690050F82B /* Trie._Node.swift */,
+				0BFC1B382934AA0700612A03 /* Trie+.swift */,
+				0B41CE5E2906DB690050F82B /* Trie.InternalNode.swift */,
 				0BAA45D2290798CE00F36AB6 /* Trie+CopyOnWrite.swift */,
 			);
 			path = Internal;
@@ -168,7 +171,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BAA45D3290798CE00F36AB6 /* Trie+CopyOnWrite.swift in Sources */,
-				0B41CE5F2906DB690050F82B /* Trie._Node.swift in Sources */,
+				0BFC1B392934AA0700612A03 /* Trie+.swift in Sources */,
+				0B41CE5F2906DB690050F82B /* Trie.InternalNode.swift in Sources */,
 				0B41CE5D2906DB600050F82B /* Trie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

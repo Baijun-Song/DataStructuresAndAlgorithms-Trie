@@ -1,18 +1,20 @@
 extension Trie {
-  mutating func _update() {
-    guard !isKnownUniquelyReferenced(&_root) else {
+  @inlinable @inline(__always)
+  mutating func update() {
+    guard !isKnownUniquelyReferenced(&root) else {
       return
     }
-    _root = __duplicate(_root)
+    root = _duplicate(root)
   }
   
-  private func __duplicate(
-    _ node: _Node
-  ) -> _Node {
-    let newNode = _Node()
-    newNode._isTerminating = node._isTerminating
-    for (key, child) in node._children {
-      newNode._children[key] = __duplicate(child)
+  @usableFromInline
+  func _duplicate(
+    _ node: InternalNode
+  ) -> InternalNode {
+    let newNode = InternalNode()
+    newNode.isTerminating = node.isTerminating
+    for (key, child) in node.children {
+      newNode.children[key] = _duplicate(child)
     }
     return newNode
   }

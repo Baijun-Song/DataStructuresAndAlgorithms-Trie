@@ -3,134 +3,112 @@ import Stack
 public struct Trie<
   CollectionType: Collection & Hashable
 > where CollectionType.Element: Hashable {
-  var _root = _Node()
+  @usableFromInline
+  var root = InternalNode()
   
+  @inlinable @inline(__always)
   public init() {}
 }
 
 extension Trie {
+  @inlinable @inline(__always)
   public var isEmpty: Bool {
     count == 0
   }
   
+  @inlinable @inline(__always)
   public var count: Int {
     var result = 0
-    __count(from: _root, result: &result)
+    _count(from: root, result: &result)
     return result
   }
   
-  private func __count(
-    from node: _Node,
-    result: inout Int
-  ) {
-    if node._isTerminating {
-      result += 1
-    }
-    for (_, child) in node._children {
-      __count(from: child, result: &result)
-    }
-  }
-  
+  @inlinable
   public mutating func insert(_ newCollection: CollectionType) {
-    _update()
-    var currentNode = _root
+    update()
+    var currentNode = root
     for newElement in newCollection {
-      if currentNode._children[newElement] == nil {
-        currentNode._children[newElement] = _Node()
+      if currentNode.children[newElement] == nil {
+        currentNode.children[newElement] = InternalNode()
       }
-      currentNode = currentNode._children[newElement]!
+      currentNode = currentNode.children[newElement]!
     }
-    currentNode._isTerminating = true
+    currentNode.isTerminating = true
   }
   
+  @inlinable
   public func contains(_ collection: CollectionType) -> Bool {
-    var currentNode = _root
+    var currentNode = root
     for element in collection {
-      if let child = currentNode._children[element] {
+      if let child = currentNode.children[element] {
         currentNode = child
       } else {
         return false
       }
     }
-    return currentNode._isTerminating
+    return currentNode.isTerminating
   }
   
+  @inlinable
   @discardableResult
   public mutating func remove(
     _ collection: CollectionType
   ) -> CollectionType? {
-    _update()
-    var currentNode = _root
+    update()
+    var currentNode = root
     var tracked = Stack<(
       key: CollectionType.Element,
-      parentNode: _Node
+      parentNode: InternalNode
     )>()
     for element in collection {
-      if let child = currentNode._children[element] {
+      if let child = currentNode.children[element] {
         tracked.push((element, currentNode))
         currentNode = child
       }
     }
     
-    guard currentNode._isTerminating else {
+    guard currentNode.isTerminating else {
       return nil
     }
-    currentNode._isTerminating = false
+    currentNode.isTerminating = false
     while let (key, parentNode) = tracked.pop() {
       guard
-        currentNode._children.isEmpty,
-        !currentNode._isTerminating
+        currentNode.children.isEmpty,
+        !currentNode.isTerminating
       else {
         break
       }
       currentNode = parentNode
-      currentNode._children[key] = nil
+      currentNode.children[key] = nil
     }
     return collection
   }
 }
 
 extension Trie where CollectionType: RangeReplaceableCollection {
+  @inlinable @inline(__always)
   public var collections: [CollectionType] {
     collections(startingWith: .init())
   }
   
+  @inlinable
   public func collections(
     startingWith possiblePrefix: CollectionType
   ) -> [CollectionType] {
     var result: [CollectionType] = []
-    var currentNode = _root
+    var currentNode = root
     for element in possiblePrefix {
-      if let child = currentNode._children[element] {
+      if let child = currentNode.children[element] {
         currentNode = child
       } else {
         return result
       }
     }
-    __collections(
+    _collections(
       possibleCollection: possiblePrefix,
       after: currentNode,
       result: &result
     )
     return result
-  }
-  
-  private func __collections(
-    possibleCollection: CollectionType,
-    after node: _Node,
-    result: inout [CollectionType]
-  ) {
-    if node._isTerminating {
-      result.append(possibleCollection)
-    }
-    for (key, child) in node._children {
-      var possibleCollection = possibleCollection
-      possibleCollection.append(key)
-      __collections(
-        possibleCollection: possibleCollection,
-        after: child,
-        result: &result
-      )
-    }
   }
 }
